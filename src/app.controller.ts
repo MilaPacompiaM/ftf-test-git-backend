@@ -6,7 +6,10 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  async getAllCommits(): Promise<any> {
+    const data = (await this.appService.getCommits()).data;
+    return {
+      data,
+    };
   }
 }
