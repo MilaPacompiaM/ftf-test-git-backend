@@ -1,11 +1,15 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
 import { Octokit } from '@octokit/core';
 import { OctokitResponse } from '@octokit/types';
+import { IConfig } from 'src/domain/config/config';
+import { ICommit } from 'src/domain/ports/commit';
 
 @Injectable()
-export class AppService {
-  async getCommits(): Promise<OctokitResponse<any>> {
-    const token = process.env.GITHUB_TOKEN;
+export class InMemoryCommitGithub implements ICommit {
+  constructor(@Inject('Config') private readonly config: IConfig) {}
+
+  async getAll(): Promise<OctokitResponse<any>> {
+    const token = this.config.getGithubToken();
     const octokit = new Octokit({ auth: token });
     const response = octokit.request('GET /repos/{owner}/{repo}/commits', {
       owner: 'MilaPacompiaM',
