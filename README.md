@@ -5,9 +5,10 @@
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository for commits from Github.
 
 ## Installation
+Remember to use Node 16.17.x and npm 8.15.x, then:
 
 ```bash
-$ npm install
+$ npm ci
 ```
 
 ## Running the app
